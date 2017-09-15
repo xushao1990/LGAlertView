@@ -138,6 +138,9 @@ typedef NS_ENUM(NSUInteger, LGAlertViewWindowLevel) {
 @property (assign, nonatomic) CGFloat buttonsHeight UI_APPEARANCE_SELECTOR;
 /** Default is 44.0 */
 @property (assign, nonatomic) CGFloat textFieldsHeight UI_APPEARANCE_SELECTOR;
+@property (assign, nonatomic) CGFloat textFieldsWidth UI_APPEARANCE_SELECTOR;
+@property (assign, nonatomic) CGFloat textFieldsBottomMarge UI_APPEARANCE_SELECTOR;
+@property (strong, nonatomic, nullable) UIView *textFieldsTopseparatorView;
 /**
  Top and bottom offsets from borders of the screen
  Default is 8.0

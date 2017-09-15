@@ -805,6 +805,8 @@ LGAlertViewType;
         _backgroundColor = UIColor.whiteColor;
         _backgroundBlurEffect = nil;
         _textFieldsHeight = 44.0;
+        _textFieldsWidth = NSNotFound;
+        _textFieldsBottomMarge = 0.0;
         _offsetVertical = 8.0;
         _cancelButtonOffsetY = 8.0;
         _heightMax = NSNotFound;
@@ -946,6 +948,8 @@ LGAlertViewType;
         _buttonsHeight = (self.style == LGAlertViewStyleAlert || LGAlertViewHelper.systemVersion < 9.0) ? 44.0 : 56.0;
     }
     _textFieldsHeight = appearance.textFieldsHeight;
+    _textFieldsWidth = appearance.textFieldsWidth;
+    _textFieldsBottomMarge = appearance.textFieldsBottomMarge;
     _offsetVertical = appearance.offsetVertical;
     _cancelButtonOffsetY = appearance.cancelButtonOffsetY;
     _heightMax = appearance.heightMax;
@@ -2259,6 +2263,7 @@ LGAlertViewType;
 
                 separatorView.frame = separatorViewFrame;
                 [self.scrollView addSubview:separatorView];
+                _textFieldsTopseparatorView = separatorView;
 
                 offsetY = CGRectGetMinY(separatorView.frame) + CGRectGetHeight(separatorView.frame);
 
@@ -2289,6 +2294,10 @@ LGAlertViewType;
 
                 CGRect textFieldFrame = CGRectMake(0.0, offsetY, width, self.textFieldsHeight);
 
+                if (_textFieldsWidth != NSNotFound) {
+                    textFieldFrame = CGRectInset(textFieldFrame, 0.5 * (width - _textFieldsWidth), 0);
+                }
+                
                 if (LGAlertViewHelper.isNotRetina) {
                     textFieldFrame = CGRectIntegral(textFieldFrame);
                 }
@@ -2303,6 +2312,8 @@ LGAlertViewType;
             self.textFieldsArray = textFieldsArray;
 
             offsetY -= self.innerMarginHeight;
+            
+            offsetY += self.textFieldsBottomMarge;
         }
 
         // -----
